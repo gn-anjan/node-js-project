@@ -5,6 +5,7 @@ pipeline{
             steps{
                 sh '''
                     echo hello-world
+                    echo testing-success
                 '''
             }
         }
