@@ -16,7 +16,7 @@ pipeline{
                 '''
             }
         }
-        stage(test){
+        stage('Test'){
             sh '''
                 test -f build/index.html
                 npm test
