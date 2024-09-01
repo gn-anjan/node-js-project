@@ -62,7 +62,7 @@ pipeline{
             post{
                 always{
                     junit "jest-results/junit.xml"
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML Local E2E Report', reportTitles: '', useWrapperFileDirectly: true])
                 }
             }                        
         }
@@ -82,6 +82,28 @@ pipeline{
                     node_modules/.bin/netlify status
                     node_modules/.bin/netlify deploy --dir=build --prod
                 '''
+            }
+        }
+        stage(Prod E2E){
+            agent{
+                docker{
+                    image "mcr.microsoft.com/playwright:v1.39.0-jammy"
+                    reuseNode true
+                }
+            }
+            environment{
+                CI_ENVIRONMENT_URL = 'https://keen-melba-b1c4b0.netlify.app'
+            }
+            steps{
+                sh '''
+                    npx playwright test
+                '''
+            }
+            post{
+                always{
+                    junit "jest-results/junit.xml"
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML Prod E2E Report', reportTitles: '', useWrapperFileDirectly: true])
+                }
             }
         }
         
