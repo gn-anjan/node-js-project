@@ -66,7 +66,25 @@ pipeline{
                 }
             }                        
         }
-        stage("Deploy"){
+        stage("Deploy to stage"){
+            agent{
+                docker{
+                    image "node:18-alpine"
+                    reuseNode true
+                }
+            }
+            steps{
+                // install netlify
+                sh '''
+                    npm install netlify-cli
+                    node_modules/.bin/netlify --version
+                    echo $NETLIFY_SITE_ID
+                    node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --dir=build
+                '''
+            }
+        }
+        stage("Deploy to prod"){
             agent{
                 docker{
                     image "node:18-alpine"
