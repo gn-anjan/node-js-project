@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        netlify_site_id = '4cb1313b-ad9b-4f82-8e19-87d2131cd59b'
+        netlify_site_id = '5855610f-46ba-4a01-a5d1-b04ec5365fc1'
         netlify_auth_token = credentials('netlify_login')
     }
     stages{
@@ -78,8 +78,6 @@ pipeline{
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                     echo $netlify_site_id
-                    node_modules/.bin/netlify login
-                    // typo fixed
                     node_modules/.bin/netlify status
                 '''
             }
