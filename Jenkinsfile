@@ -79,6 +79,7 @@ pipeline{
                     node_modules/.bin/netlify --version
                     echo $netlify_site_id
                     nelify login
+                    // typo fixed
                     node_modules/.bin/netlify status
                 '''
             }
