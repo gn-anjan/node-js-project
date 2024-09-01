@@ -69,6 +69,7 @@ pipeline{
                 }
             }
             steps{
+                // install netlify
                 sh '''
                     npm install netlify-cli -g
                 '''
