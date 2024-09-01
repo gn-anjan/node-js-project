@@ -78,7 +78,7 @@ pipeline{
                     npm install netlify-cli
                     node_modules/.bin/netlify --version
                     echo $netlify_site_id
-                    nelify login
+                    netlify login
                     // typo fixed
                     node_modules/.bin/netlify status
                 '''
