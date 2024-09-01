@@ -6,7 +6,6 @@ pipeline{
     }
     stages{
         stage('Build'){
-            cleanWS()
             agent{
                 docker{
                     image "node:18-alpine"
@@ -14,6 +13,7 @@ pipeline{
                 }
             }
             steps{
+                cleanWS()
                 sh '''
                     npm install
                     npm ci
