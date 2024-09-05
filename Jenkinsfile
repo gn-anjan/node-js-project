@@ -5,7 +5,7 @@ pipeline{
         NETLIFY_AUTH_TOKEN = credentials('netlify_token')
     }
     stages{
-        //test
+        // test
         stage('Build'){
             agent{
                 docker{
@@ -101,6 +101,12 @@ pipeline{
                     node_modules/.bin/netlify status
                     node_modules/.bin/netlify deploy --dir=build --prod
                 '''
+            }
+        }
+        stage('Apprval'){
+            steps{
+                timeout(time: 20, unit: 'SECONDS')
+                input 'Ready for production?'
             }
         }
         stage('Prod E2E'){
