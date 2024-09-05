@@ -81,8 +81,14 @@ pipeline{
                     node_modules/.bin/netlify --version
                     echo $NETLIFY_SITE_ID
                     node_modules/.bin/netlify status
-                    node_modules/.bin/netlify deploy --dir=build
+                    node_modules/.bin/netlify deploy --dir=build --json
                 '''
+            }
+        }
+        stage('Approval'){
+            steps{
+                timeout(time: 20, unit: 'SECONDS')
+                input 'Ready for production?'
             }
         }
         stage("Deploy to prod"){
@@ -101,12 +107,6 @@ pipeline{
                     node_modules/.bin/netlify status
                     node_modules/.bin/netlify deploy --dir=build --prod
                 '''
-            }
-        }
-        stage('Apprval'){
-            steps{
-                timeout(time: 20, unit: 'SECONDS')
-                input 'Ready for production?'
             }
         }
         stage('Prod E2E'){
