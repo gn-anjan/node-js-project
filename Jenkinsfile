@@ -55,6 +55,7 @@ pipeline{
                             node_modules/.bin/serve -s build & 
                             sleep 10
                             npx playwright test --reporter=html
+                            cat playwright-report/index.html
                         '''
                     }
                 }
@@ -63,7 +64,7 @@ pipeline{
             post{
                 always{
                     junit "jest-results/junit.xml"
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML local Report', reportTitles: '', useWrapperFileDirectly: true])
                 }
             }                        
         }
@@ -106,7 +107,7 @@ pipeline{
             post{
                 always{
                     junit "jest-results/junit.xml"
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                    ppublishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML stage Report', reportTitles: '', useWrapperFileDirectly: true])
                 }
             }
         }
@@ -147,12 +148,13 @@ pipeline{
             steps{
                 sh '''
                     npx playwright test --reporter=html
+                    cat playwright-report/index.html
                 '''
             }
             post{
                 always{
                     junit "jest-results/junit.xml"
-                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML prod Report', reportTitles: '', useWrapperFileDirectly: true])
                 }
             }
         }
