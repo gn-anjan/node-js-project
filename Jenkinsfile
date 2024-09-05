@@ -111,7 +111,6 @@ pipeline{
                 }
             }
         }
-        }
         stage('Approval'){      
             steps{
                 timeout(time: 20, unit: 'SECONDS')
