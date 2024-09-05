@@ -82,7 +82,6 @@ pipeline{
                     echo $NETLIFY_SITE_ID
                     node_modules/.bin/netlify status
                     node_modules/.bin/netlify deploy --dir=build --json > stage_deploy.json
-                    node_modules/.bin/node-jq -r '.deploy_url' stage_deploy.json
                 '''
             }
             script {
