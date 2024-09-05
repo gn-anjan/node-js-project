@@ -105,8 +105,7 @@ pipeline{
             }
             post{
                 always{
-                    junit "jest-results/junit.xml"
-                    ppublishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML stage Report', reportTitles: '', useWrapperFileDirectly: true])
+                    publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'HTML stage Report', reportTitles: '', useWrapperFileDirectly: true])
                 }
             }
         }
