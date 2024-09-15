@@ -28,7 +28,7 @@ pipeline{
                     sh '''
                         aws --version
                         aws s3 ls
-                        aws s3 cp build s3://node-deployment-project
+                        aws s3 cp build s3://node-deployment-project --recursive
                     '''
                 }
             }
