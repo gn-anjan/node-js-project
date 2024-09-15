@@ -20,6 +20,7 @@ pipeline{
                 docker{
                     image "amazon/aws-cli:latest"
                     args "--entrypoint=''"
+                    nodeReuse true
                 }
             }
             steps{
@@ -27,6 +28,7 @@ pipeline{
                     sh '''
                         aws --version
                         aws s3 ls
+                        aws cp build s3://node-deployment-project
                     '''
                 }
             }
