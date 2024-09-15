@@ -52,7 +52,7 @@ pipeline{
                 }
             }
             environment{
-                CI_ENVIRONMENT_URL = http://node-deployment-project.s3-website-us-east-1.amazonaws.com/
+                CI_ENVIRONMENT_URL = "http://node-deployment-project.s3-website-us-east-1.amazonaws.com/"
             }
             steps{
                 sh '''
