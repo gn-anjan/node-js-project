@@ -16,8 +16,7 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'aws-config', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                 sh '''
                     yum install jq -y
-                    LATEST_REVISION = $(aws ecs register-task-definition --cli-input-json file://aws/task-definition.json | jq '.taskDefinition.revision')
-                    echo $LATEST_REVISION
+                    LATEST_REVISION=$(aws ecs register-task-definition --cli-input-json file://aws/task-definition.json | jq '.taskDefinition.revision')
                     aws ecs update-service --cluster node-project --service node-pro --task-definition node-project:$LATEST_REVISION
                 '''
                 }
