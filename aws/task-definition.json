@@ -6,7 +6,7 @@
     "containerDefinitions": [
         {
             "name": "nginx-pod",
-            "image": "httpd:latest",
+            "image": "nginx:latest",
             "portMappings": [{
                 "name": "nginx-tcp",
                 "containerPort": 80,
