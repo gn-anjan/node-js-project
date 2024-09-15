@@ -1,0 +1,15 @@
+pipeline{
+    agent any
+    stages{
+        stage('AWS S3 CLI'){
+            agent{
+                docker{
+                    image "amazon/aws-cli:latest"
+                }
+            }
+            steps{
+                sh "aws --version"
+            }
+        }
+    }
+}
