@@ -1,6 +1,20 @@
 pipeline{
     agent any
     stages{
+        stage('Build'){
+            agent{
+                docker{
+                    image "node:18-alpine"
+                    nodeReuse true
+                }
+            }
+            steps{
+                sh '''
+                    npm install
+                    npm run build
+                '''
+            }
+        }
         stage('AWS S3 CLI'){
             agent{
                 docker{
