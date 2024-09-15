@@ -16,6 +16,8 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'aws-config', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                 sh '''
                     aws ecs register-task-definition --cli-input-json file://aws/task-definition.json
+                    aws ecs update-service --cluster node-project --service node-pro --task-definition node-project:3
+
                 '''
                 }
             }
