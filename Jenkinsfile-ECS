@@ -1,0 +1,23 @@
+pipeline{
+    agent any
+    environment{
+        AWS_DEFAULT_REGION = 'us-east-1'
+    }
+    stages{
+        agent{
+            docker{
+                image "amazon/aws-cli:latest"
+                args "--entrypoint=''"
+                reuseNode true
+            }
+        }
+        stage('ECS test'){
+            withCredentials([usernamePassword(credentialsId: 'aws-config', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+                sh '''
+                    aws ecs register-task-definition \
+    --cli-input-json file://aws\task-definition.json
+                '''
+            }
+        }
+    }
+}
