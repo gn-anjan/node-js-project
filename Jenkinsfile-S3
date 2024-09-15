@@ -4,7 +4,7 @@ pipeline{
         REACT_APP_VERSION = "1.2.$BUILD_ID"
     }
     stages{
-        stage('Build'){
+        stage('Build & test'){
             agent{
                 docker{
                     image "node:18-alpine"
@@ -14,8 +14,16 @@ pipeline{
             steps{
                 sh '''
                     npm install
+                    npm ci
                     npm run build
+                    test -f build/index.html
+                    npm test
                 '''
+            }
+            post{
+                always{
+                    junit "junit "jest-results/junit.xml""
+                }
             }
         }
         stage('AWS S3 CLI'){
@@ -34,6 +42,27 @@ pipeline{
                         aws s3 sync build s3://node-deployment-project
                     '''
                 }
+            }
+        }
+        stage('E2E'){
+            agent{
+                docker{
+                    image "mcr.microsoft.com/playwright:v1.39.0-jammy"
+                    reuseNode true
+                }
+            }
+            environment{
+                CI_ENVIRONMENT_URL = http://node-deployment-project.s3-website-us-east-1.amazonaws.com/
+            }
+            steps{
+                sh '''
+                    npx playwright test --reporter=html
+                '''
+            }
+        }
+        post{
+            always{
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles:'index.html', reportName: 'HTML prod Report', reportTitles: '', useWrapperFileDirectly: true])
             }
         }
     }
