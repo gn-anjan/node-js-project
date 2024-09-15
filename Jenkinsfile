@@ -143,7 +143,7 @@ pipeline{
                 }
             }
             environment{
-                CI_ENVIRONMENT_URL = 'https://keen-melba-b1c4b0.netlify.app'
+                CI_ENVIRONMENT_URL = 'https://gleeful-malabi-e5d212.netlify.app/'
             }
             steps{
                 sh '''
