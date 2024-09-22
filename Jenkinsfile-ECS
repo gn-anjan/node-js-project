@@ -27,6 +27,7 @@ pipeline{
             steps{
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', passwordVariable: 'HUB_PASSWORD', usernameVariable: 'HUB_USERNAME')]){
                     sh '''
+                    amazon-linux-extras install docker
                     echo $HUB_PASSWORD | docker login -u $HUB_USERNAME --password-stdin
                     docker build -t anjan98/node-pro:$REACT_APP_VERSION .
                     docker push anjan98/node-pro:$REACT_APP_VERSION
