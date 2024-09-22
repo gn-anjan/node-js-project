@@ -9,8 +9,8 @@
             "image": "anjan98/node-pro:1",
             "portMappings": [{
                 "name": "nginx-tcp",
-                "containerPort": 80,
-                "hostPort": 80,
+                "containerPort": 3000,
+                "hostPort": 3000,
                 "protocol": "tcp",
                 "appProtocol": "http"
             }],
