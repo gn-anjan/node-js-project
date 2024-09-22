@@ -3,6 +3,7 @@ pipeline{
     environment{
         AWS_DEFAULT_REGION = 'us-east-1'
         REACT_APP_VERSION = "1.3.$BUILD_ID"
+        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
     }
     stages{
         stage('Build'){
@@ -22,10 +23,13 @@ pipeline{
         }
         stage('Docker build & push'){
             steps{
-                sh '''
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    sh '''
+                    docker login -u $DOCKER_USERNAME --password-stdin
                     docker build -t anjan98/node-pro:1 .
                     docker push anjan98/node-pro:1
                 '''
+                }
             }
         }
         stage('ECS Test'){
