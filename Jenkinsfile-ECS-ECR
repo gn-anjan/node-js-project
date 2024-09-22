@@ -32,6 +32,7 @@ pipeline{
             }
             steps{
                 sh '''
+                    amazon-linux-extras install docker
                     docker build -t $AWS_ECR/$APP_NAME:$REACT_APP_VERSION .
                     aws ecr get-login-password | docker login --username AWS --password-stdin $AWS_ECR
                     docker push $AWS_ECR/$APP_NAME:$REACT_APP_VERSION
