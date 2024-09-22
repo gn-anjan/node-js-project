@@ -24,7 +24,7 @@ pipeline{
             steps{
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-login', passwordVariable: 'DOCKERHUB-PASSWORD', usernameVariable: 'DOCKERHUB-USERNAME')]) {
                     sh '''
-                    echo "$DOCKER_PASSWORD" | docker login -u "$DOCKERHUB-USERNAME" --password-stdin
+                    echo "$DOCKERHUB-PASSWORD" | docker login -u "$DOCKERHUB-USERNAME" --password-stdin
                     docker build -t anjan98/node-pro:1 .
                     docker push anjan98/node-pro:1
                 '''
