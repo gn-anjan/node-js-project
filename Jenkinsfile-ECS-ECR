@@ -7,6 +7,7 @@ pipeline{
         AWS_ECR = "182622655008.dkr.ecr.us-east-1.amazonaws.com"
         ECS_CLUSTER = "node-project"
         ECS_SERVICE = "node-pro"
+        ECS_TASK_DEFINITION = "node-project-new"
     }
     stages{
         stage('Build'){
