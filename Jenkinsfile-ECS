@@ -22,7 +22,7 @@ pipeline{
         }
         stage('Docker build & push'){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'aws-cli', passwordVariable: 'HUB_PASSWORD', usernameVariable: 'HUB_USERNAME')]){
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', passwordVariable: 'HUB_PASSWORD', usernameVariable: 'HUB_USERNAME')]){
                     sh '''
                     echo $HUB_PASSWORD | docker login -u $HUB_USERNAME --password-stdin
                     docker build -t anjan98/node-pro:1 .
