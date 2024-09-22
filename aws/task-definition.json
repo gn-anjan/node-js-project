@@ -2,7 +2,7 @@
     "requiresCompatibilities": [
         "FARGATE"
     ],
-    "family": "node-project",
+    "family": "node-project-new",
     "containerDefinitions": [
         {
             "name": "nginx-pod",
