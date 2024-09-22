@@ -6,7 +6,7 @@
     "containerDefinitions": [
         {
             "name": "node-project",
-            "image": "anjan98/node-pro:1",
+            "image": "anjan98/node-pro:#APP_VERSION#",
             "portMappings": [{
                 "name": "node-tcp",
                 "containerPort": 3000,

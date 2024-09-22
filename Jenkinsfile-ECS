@@ -25,8 +25,8 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'dockerhub_creds', passwordVariable: 'HUB_PASSWORD', usernameVariable: 'HUB_USERNAME')]){
                     sh '''
                     echo $HUB_PASSWORD | docker login -u $HUB_USERNAME --password-stdin
-                    docker build -t anjan98/node-pro:1 .
-                    docker push anjan98/node-pro:1
+                    docker build -t anjan98/node-pro:$REACT_APP_VERSION .
+                    docker push anjan98/node-pro:$REACT_APP_VERSION
                 '''
                 }
             }
@@ -43,6 +43,7 @@ pipeline{
                 withCredentials([usernamePassword(credentialsId: 'aws-cli', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                 sh '''
                     yum install jq -y
+                    sed -i "s/#APP_VERSION#/$REACT_APP_VERSION/g" aws\task-definition.json
                     LATEST_REVISION=$(aws ecs register-task-definition --cli-input-json file://aws/task-definition.json | jq '.taskDefinition.revision')
                     echo $LATEST_REVISION
                     aws ecs update-service --cluster node-project --service node-pro --task-definition node-project-new:$LATEST_REVISION
