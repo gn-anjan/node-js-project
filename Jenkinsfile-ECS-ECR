@@ -2,8 +2,8 @@ pipeline{
     agent any
     environment{
         AWS_DEFAULT_REGION = 'us-east-1'
-        REACT_APP_VERSION = "1.3.$BUILD_ID"
-        APP_NAME = "node-project"
+        REACT_APP_VERSION = "2.3.$BUILD_ID"
+        APP_NAME = "node_pro"
         AWS_ECR = "182622655008.dkr.ecr.us-east-1.amazonaws.com"
     }
     stages{
