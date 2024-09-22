@@ -5,8 +5,8 @@
     "family": "node-project-new",
     "containerDefinitions": [
         {
-            "name": "nginx-pod",
-            "image": "nginx:latest",
+            "name": "node-project",
+            "image": "anjan98/node-pro:1",
             "portMappings": [{
                 "name": "nginx-tcp",
                 "containerPort": 80,
