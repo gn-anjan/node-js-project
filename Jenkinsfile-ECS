@@ -24,7 +24,7 @@ pipeline{
             steps{
                 withCredentials([usernamePassword(credentialsId: 'aws-cli', passwordVariable: 'HUB_PASSWORD', usernameVariable: 'HUB_USERNAME')]){
                     sh '''
-                    echo $HUB-PASSWORD | docker login -u $HUB-USERNAME --password-stdin
+                    echo $HUB_PASSWORD | docker login -u $HUB_USERNAME --password-stdin
                     docker build -t anjan98/node-pro:1 .
                     docker push anjan98/node-pro:1
                 '''
